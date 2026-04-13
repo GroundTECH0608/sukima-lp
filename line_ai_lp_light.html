@@ -38,6 +38,7 @@ body {
   font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
   background: var(--bg);
   color: var(--text);
+  font-weight: 500;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -186,12 +187,13 @@ body {
 }
 .phone-wrap::before {
   content: '';
-  position: absolute; inset: -1px;
+  position: absolute; top: -1px; right: -1px; bottom: -1px; left: -1px;
   border-radius: 45px;
   background: linear-gradient(145deg, rgba(59,191,184,.3), transparent 60%);
   z-index: -1;
 }
 .phone {
+  width: 260px;
   width: clamp(220px, 24vw, 300px);
   border-radius: 42px;
   border: 9px solid #1a1a2e;
@@ -648,7 +650,7 @@ footer a:hover { color: var(--teal); }
   padding: 0;
   background-image: url('hero_illust.png');
   background-repeat: no-repeat;
-  background-size: 100% auto;
+  background-size: 70% auto;
   background-position: center bottom;
 }
 @media (max-width: 768px) {
@@ -1155,7 +1157,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <img class="footer-logo" src="rogo/line_oa_chat_251127_111613.jpg" alt="スキマ House Cleaning">
   <p>© 2026 スキマ House Cleaning　All Rights Reserved.</p>
   <p>
-    <a href="#">プライバシーポリシー</a>　|
+    <a href="privacy.html">プライバシーポリシー</a>　|
     <a href="#">特定商取引法に基づく表記</a>　|
     <a href="#">お問い合わせ</a>
   </p>
