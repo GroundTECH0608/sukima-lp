@@ -10,18 +10,18 @@
 <style>
 :root {
   --navy: #1a2d5a;
-  --teal: #3bbfb8;
+  --teal: #2aa49e;
   --teal2: #2aa49e;
   --line: #06C755;
   --line-d: #05a849;
-  --bg: #08101f;
-  --bg2: #0d1829;
-  --bg3: #111f36;
-  --glass: rgba(255,255,255,0.04);
-  --border: rgba(255,255,255,0.08);
-  --text: #f2f6ff;
-  --muted: rgba(242,246,255,0.5);
-  --muted2: rgba(242,246,255,0.35);
+  --bg: #ffffff;
+  --bg2: #f4f8f8;
+  --bg3: #eaf4f3;
+  --glass: rgba(42,164,158,0.06);
+  --border: rgba(26,45,90,0.1);
+  --text: #1a2d5a;
+  --muted: rgba(26,45,90,0.55);
+  --muted2: rgba(26,45,90,0.35);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -128,12 +128,12 @@ body {
 .hero-badge {
   display: inline-flex; align-items: center; gap: 10px;
   border: 1px solid rgba(59,191,184,.7);
-  color: #fff;
+  color: #1a2d5a;
   font-size: 13px; font-weight: 700;
   letter-spacing: .08em;
   padding: 10px 22px; border-radius: 50px;
   background: linear-gradient(120deg, rgba(59,191,184,.25) 0%, rgba(59,191,184,.1) 100%);
-  box-shadow: 0 0 24px rgba(59,191,184,.25), inset 0 1px 0 rgba(255,255,255,.08);
+  box-shadow: 0 0 24px rgba(42,164,158,.15), inset 0 1px 0 rgba(255,255,255,.08);
   margin-bottom: 28px;
 }
 .hero-badge::before {
@@ -165,26 +165,13 @@ body {
   color: var(--muted);
   line-height: 1.9;
   margin-bottom: 36px;
-  font-weight: 300;
+  font-weight: 900;
+  text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 2px 0 0 #fff, -2px 0 0 #fff;
 }
-.hero-sub strong { color: var(--text); font-weight: 700; }
+.hero-sub strong { color: var(--text); font-weight: 900; text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 2px 0 0 #fff, -2px 0 0 #fff; }
 
 .hero-cta-wrap { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
 .hero-note { font-size: 11px; color: var(--muted2); letter-spacing: .04em; }
-.hero-proof {
-  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-  margin-top: 20px;
-  font-size: 13px; font-weight: 700; color: var(--text);
-}
-.hero-proof small { font-weight: 400; font-size: 11px; color: var(--muted); margin-left: 2px; }
-.hero-proof-sep { color: var(--muted2); }
-.hero-proof-item { display: flex; align-items: center; gap: 4px; }
-.hero-proof-star { color: #fbbf24; }
-.urgency-note {
-  font-size: 11px; color: var(--teal);
-  margin-top: 12px; letter-spacing: .03em;
-  opacity: .85;
-}
 
 /* ---- phone mockup ---- */
 .phone-wrap {
@@ -204,8 +191,6 @@ body {
   border: 9px solid #1a1a2e;
   background: #1a1a2e;
   overflow: hidden;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
   box-shadow:
     inset 0 0 0 1px rgba(255,255,255,.08),
     0 0 0 1px #0d0d1e;
@@ -214,7 +199,6 @@ body {
   width: 100%;
   display: block;
   object-fit: cover;
-  aspect-ratio: 9 / 19;
 }
 
 /* ============ SECTION BASE ============ */
@@ -651,6 +635,21 @@ footer p { font-size: 11px; color: rgba(255,255,255,.25); line-height: 2.2; }
 footer a { color: rgba(255,255,255,.3); text-decoration: none; transition: color .2s; }
 footer a:hover { color: var(--teal); }
 
+/* ============ HERO SECTION BG ============ */
+.hero-section {
+  padding: 0;
+  background-image: url('hero_illust.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center bottom;
+}
+@media (max-width: 768px) {
+  .hero-section {
+    background-size: 100% auto;
+    background-position: center bottom;
+  }
+}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 768px) {
   .hero {
@@ -658,15 +657,15 @@ footer a:hover { color: var(--teal); }
     padding: 100px 24px 64px;
     text-align: center;
   }
-  /* .hero-right { order: -1; } */
+  .hero-right { order: -1; }
   .hero-cta-wrap { align-items: center; }
-  .phone { width: min(300px, 85vw); }
+  .phone { width: 200px; }
   .pain-layout { grid-template-columns: 1fr; }
   .pain-mascot { display: none; }
   .demo-layout { grid-template-columns: 1fr; }
   .demo-phones { flex-direction: column; align-items: center; }
   .demo-phones .phone:nth-child(2) { margin-top: 0; }
-  .demo-phones .phone { width: min(320px, 85vw); }
+  .demo-phones .phone { width: 220px; }
   .steps { grid-template-columns: 1fr; }
   .hd-logo-text { display: none; }
 }
@@ -682,9 +681,9 @@ footer a:hover { color: var(--teal); }
 <!-- ============ HEADER ============ -->
 <header class="hd">
   <div class="hd-logo">
-    <img src="rogo/line_oa_chat_251127_111613.jpg" alt="スキマハウスクリーニング">
+    <img src="rogo/line_oa_chat_251127_111613.jpg" alt="スキマ House Cleaning">
     <div class="hd-logo-text">
-      スキマハウスクリーニング
+      スキマ House Cleaning
       <span>LINE AI アシスタント</span>
     </div>
   </div>
@@ -695,37 +694,25 @@ footer a:hover { color: var(--teal); }
 </header>
 
 <!-- ============ HERO ============ -->
-<section style="padding:0; background: transparent;">
+<section class="hero-section">
   <div class="hero">
     <div class="hero-left">
       <div class="hero-badge">業界唯一 · 世界最高峰AI採用</div>
       <h1>
-        掃除で迷ったら、<br>
-        まず<span class="gr">LINEで聞こう。</span>
+        掃除のこと、<br>
+        なんでも<span class="gr">聞いていい。</span>
       </h1>
       <p class="hero-sub">
         自分でやってみたけど落ちない。プロに頼むほどか迷ってる。<br>
         夜中に気になっても、どこにも聞けない。<br>
         <strong>その「どうしよう」を、スキマAIが24時間受け取ります。</strong>
       </p>
-      <div class="hero-proof">
-        <div class="hero-proof-item">
-          <span class="hero-proof-star">★</span> 4.71<small>／口コミ401件</small>
-        </div>
-        <span class="hero-proof-sep">·</span>
-        <div class="hero-proof-item">
-          Google <span class="hero-proof-star">★</span> 5.0<small>／30件</small>
-        </div>
-        <span class="hero-proof-sep">·</span>
-        <div class="hero-proof-item">相談すべて無料</div>
-      </div>
       <div class="hero-cta-wrap">
         <a href="https://lin.ee/SW1S0fn" class="btn-line lg" target="_blank" rel="noopener">
           <svg class="line-svg-lg" viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.630 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.630 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
           今すぐ友だち追加する（無料）
         </a>
         <p class="hero-note">登録・相談すべて無料　|　個人情報は安全に管理されます</p>
-        <p class="urgency-note">▶ β版期間中につき、AI相談はすべて無料でご利用いただけます</p>
       </div>
     </div>
     <div class="hero-right">
@@ -746,7 +733,7 @@ footer a:hover { color: var(--teal); }
     <p class="ss">日常のちょっとした困りごとに、答えてくれる場所がなかった</p>
     <div class="pain-layout">
       <div class="pain-mascot">
-        <img loading="lazy" src="rogo/line_oa_chat_251127_111247_group_1.jpg" alt="悩むスキマくん">
+        <img src="rogo/line_oa_chat_251127_111247_group_1.jpg" alt="悩むスキマくん">
       </div>
       <div class="pain-list">
         <div class="pain-item">
@@ -785,7 +772,7 @@ footer a:hover { color: var(--teal); }
 <!-- ============ SOLUTION ============ -->
 <section class="solution">
   <div class="inner-sm">
-    <img loading="lazy" class="solution-logo" src="rogo/line_oa_chat_251127_111613.jpg" alt="スキマハウスクリーニング">
+    <img class="solution-logo" src="rogo/line_oa_chat_251127_111613.jpg" alt="スキマ House Cleaning">
     <p class="ey">Solution</p>
     <h2 style="font-size: clamp(22px, 4vw, 36px); font-weight: 900; margin-bottom: 16px; line-height: 1.4; text-align: center;">
       その悩みすべてに、<br><span class="gr">スキマAIが答えます。</span>
@@ -871,29 +858,29 @@ footer a:hover { color: var(--teal); }
         <div class="ba-set">
           <div class="ba-label">床・カビ</div>
           <div class="ba-pair">
-            <div class="ba-side"><img loading="lazy" src="ba/250218_75.jpg" alt="浴室床 before"><span class="ba-tag before">Before</span></div>
-            <div class="ba-side"><img loading="lazy" src="ba/250218_57_0.jpg" alt="浴室床 after"><span class="ba-tag after">After</span></div>
+            <div class="ba-side"><img src="ba/250218_75.jpg" alt="浴室床 before"><span class="ba-tag before">Before</span></div>
+            <div class="ba-side"><img src="ba/250218_57_0.jpg" alt="浴室床 after"><span class="ba-tag after">After</span></div>
           </div>
         </div>
         <div class="ba-set">
           <div class="ba-label">排水溝</div>
           <div class="ba-pair">
-            <div class="ba-side"><img loading="lazy" src="ba/250218_13.jpg" alt="排水溝 before"><span class="ba-tag before">Before</span></div>
-            <div class="ba-side"><img loading="lazy" src="ba/250218_66.jpg" alt="排水溝 after"><span class="ba-tag after">After</span></div>
+            <div class="ba-side"><img src="ba/250218_13.jpg" alt="排水溝 before"><span class="ba-tag before">Before</span></div>
+            <div class="ba-side"><img src="ba/250218_66.jpg" alt="排水溝 after"><span class="ba-tag after">After</span></div>
           </div>
         </div>
         <div class="ba-set">
           <div class="ba-label">ガラス棚</div>
           <div class="ba-pair">
-            <div class="ba-side"><img loading="lazy" src="ba/250218_8.jpg" alt="ガラス棚 before"><span class="ba-tag before">Before</span></div>
-            <div class="ba-side"><img loading="lazy" src="ba/250218_61.jpg" alt="ガラス棚 after"><span class="ba-tag after">After</span></div>
+            <div class="ba-side"><img src="ba/250218_8.jpg" alt="ガラス棚 before"><span class="ba-tag before">Before</span></div>
+            <div class="ba-side"><img src="ba/250218_61.jpg" alt="ガラス棚 after"><span class="ba-tag after">After</span></div>
           </div>
         </div>
         <div class="ba-set">
           <div class="ba-label">蛇口・シャワー</div>
           <div class="ba-pair">
-            <div class="ba-side"><img loading="lazy" src="ba/S__622611_0.jpg" alt="蛇口 before"><span class="ba-tag before">Before</span></div>
-            <div class="ba-side"><img loading="lazy" src="ba/S__622620_0.jpg" alt="蛇口 after"><span class="ba-tag after">After</span></div>
+            <div class="ba-side"><img src="ba/S__622611_0.jpg" alt="蛇口 before"><span class="ba-tag before">Before</span></div>
+            <div class="ba-side"><img src="ba/S__622620_0.jpg" alt="蛇口 after"><span class="ba-tag after">After</span></div>
           </div>
         </div>
       </div>
@@ -902,20 +889,25 @@ footer a:hover { color: var(--teal); }
     <!-- トイレ -->
     <div class="ba-category">
       <div class="ba-category-title">トイレ</div>
-      <div class="ba-grid col2">
+      <div class="ba-grid">
         <div class="ba-set">
-          <div class="ba-label">便器①</div>
+          <div class="ba-label">便器</div>
           <div class="ba-pair">
-            <div class="ba-side"><img loading="lazy" src="ba/toilet_before1.jpg" alt="トイレ before"><span class="ba-tag before">Before</span></div>
-            <div class="ba-side"><img loading="lazy" src="ba/toilet_after1.jpg" alt="トイレ after"><span class="ba-tag after">After</span></div>
+            <div class="ba-side"><img src="ba/S__622614_0.jpg" alt="トイレ before"><span class="ba-tag before">Before</span></div>
+            <div class="ba-side"><img src="ba/S__622618_0.jpg" alt="トイレ after"><span class="ba-tag after">After</span></div>
           </div>
         </div>
-        <div class="ba-set">
-          <div class="ba-label">便器②</div>
-          <div class="ba-pair">
-            <div class="ba-side"><img loading="lazy" src="ba/toilet_before2.jpg" alt="トイレ before"><span class="ba-tag before">Before</span></div>
-            <div class="ba-side"><img loading="lazy" src="ba/toilet_after2.jpg" alt="トイレ after"><span class="ba-tag after">After</span></div>
-          </div>
+        <div class="ba-set ba-coming-wrap">
+          <div class="ba-label" style="opacity:0;">-</div>
+          <div class="ba-coming"><span class="ba-coming-icon">📷</span>準備中</div>
+        </div>
+        <div class="ba-set ba-coming-wrap">
+          <div class="ba-label" style="opacity:0;">-</div>
+          <div class="ba-coming"><span class="ba-coming-icon">📷</span>準備中</div>
+        </div>
+        <div class="ba-set ba-coming-wrap">
+          <div class="ba-label" style="opacity:0;">-</div>
+          <div class="ba-coming"><span class="ba-coming-icon">📷</span>準備中</div>
         </div>
       </div>
     </div>
@@ -962,7 +954,6 @@ footer a:hover { color: var(--teal); }
       </div>
     </div>
 
-
     <!-- キッチン -->
     <div class="ba-category">
       <div class="ba-category-title">キッチン</div>
@@ -983,20 +974,16 @@ footer a:hover { color: var(--teal); }
         </div>
       </div>
     </div>
+
   </div>
 </section>
-
-<!-- EMOTION COPY -->
-<div style="text-align:center; padding: 0 24px 80px;">
-  <p style="font-size: clamp(16px,3vw,22px); font-weight:700; color:var(--text); line-height:1.7;">&ldquo;やっぱりプロって違う&rdquo;<br><span style="font-size:14px; font-weight:400; color:var(--muted);">そう思ったら、まず相談だけでも。</span></p>
-</div>
 
 <!-- ============ TRUST ============ -->
 <section class="trust">
   <div class="inner">
     <p class="ey">Why Choose Us</p>
     <h2 class="st">選ばれる理由</h2>
-    <p class="ss">スキマハウスクリーニングが多くのお客様に信頼いただいている理由</p>
+    <p class="ss">スキマ House Cleaningが多くのお客様に信頼いただいている理由</p>
     <div class="trust-grid">
       <div class="trust-item">
         <span class="trust-star">★★★★★</span>
@@ -1033,6 +1020,16 @@ footer a:hover { color: var(--teal); }
     </div>
   </div>
 </section>
+
+<!-- ============ CTA 2 ============ -->
+<div class="cta-block">
+  <h2>まずは、気になることをそのまま送ってみて。</h2>
+  <p>料金でも、掃除方法でも、プロに頼むか迷っていることでも。ちゃんと答えます。</p>
+  <a href="https://lin.ee/SW1S0fn" class="btn-line lg" target="_blank" rel="noopener">
+    <svg class="line-svg-lg" viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.630 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.630 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+    今すぐ聞いてみる（無料）
+  </a>
+</div>
 
 <!-- ============ HOW TO USE ============ -->
 <section class="howto">
@@ -1072,15 +1069,6 @@ footer a:hover { color: var(--teal); }
     <div class="faq-list">
       <div class="faq-item open">
         <button class="faq-q" onclick="toggleFaq(this)">
-          どんなことを聞けますか？
-          <span class="faq-q-icon">＋</span>
-        </button>
-        <div class="faq-a">
-          掃除方法・料金目安・汚れの原因・プロに頼むか迷っている相談など、日常のお掃除に関することなら何でも聞けます。「この汚れ自分で取れる？」「重曹とクエン酸どっち？」といった気軽な疑問からどうぞ。現在β版のため、すべての相談が無料です。
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
           友だち追加したら、勧誘や営業メッセージが来ますか？
           <span class="faq-q-icon">＋</span>
         </button>
@@ -1094,7 +1082,7 @@ footer a:hover { color: var(--teal); }
           <span class="faq-q-icon">＋</span>
         </button>
         <div class="faq-a">
-          はい、完全無料です。現在β版のため、AI相談はすべて無料でご利用いただけます。料金が発生するのはハウスクリーニングの作業を正式にご依頼いただいた場合のみです。
+          はい、完全無料です。料金が発生するのはハウスクリーニングの作業を正式にご依頼いただいた場合のみです。相談・見積もり・質問はすべて無料でご利用いただけます。
         </div>
       </div>
       <div class="faq-item">
@@ -1137,16 +1125,9 @@ footer a:hover { color: var(--teal); }
   </div>
 </section>
 
-<!-- ============ MEMORY ============ -->
-<section style="text-align:center; padding:80px 24px; background:var(--bg2);">
-  <img loading="lazy" src="rogo/line_oa_chat_251127_111247_group_1.jpg" alt="スキマくん" style="width:80px; height:80px; object-fit:cover; border-radius:50%; margin-bottom:24px;">
-  <p style="font-size:clamp(18px,3.5vw,26px); font-weight:700; color:var(--text); line-height:1.8;">掃除で迷ったとき、<br>思い出してください。</p>
-  <p style="font-size:14px; color:var(--muted); margin-top:12px;">スキマハウスクリーニングは<br>いつでもLINEで待っています。</p>
-</section>
-
 <!-- ============ FINAL CTA ============ -->
 <section class="final">
-  <img loading="lazy" class="final-mascot" src="rogo/line_oa_chat_251127_111247_group_0.jpg" alt="スキマくん">
+  <img class="final-mascot" src="rogo/line_oa_chat_251127_111247_group_0.jpg" alt="スキマくん">
   <h2>
     掃除で困ったら、<br>
     <span class="gr">まずLINEで聞いて。</span>
@@ -1155,7 +1136,6 @@ footer a:hover { color: var(--teal); }
     登録無料・いつでも退会できます。<br>
     気軽な質問から。それだけでいい。
   </p>
-  <p style="font-size:12px; color:var(--teal); margin-bottom:24px; opacity:.85; position:relative; z-index:1;">β版期間中につき、AI相談はすべて無料です</p>
   <a href="https://lin.ee/SW1S0fn" class="btn-line lg" target="_blank" rel="noopener">
     <svg class="line-svg-lg" viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.630 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.630 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
     友だち追加して相談する（無料）
@@ -1165,10 +1145,10 @@ footer a:hover { color: var(--teal); }
 
 <!-- ============ FOOTER ============ -->
 <footer>
-  <img loading="lazy" class="footer-logo" src="rogo/line_oa_chat_251127_111613.jpg" alt="スキマハウスクリーニング">
-  <p>© 2026 スキマハウスクリーニング　All Rights Reserved.</p>
+  <img class="footer-logo" src="rogo/line_oa_chat_251127_111613.jpg" alt="スキマ House Cleaning">
+  <p>© 2026 スキマ House Cleaning　All Rights Reserved.</p>
   <p>
-    <a href="privacy.html">プライバシーポリシー</a>　|
+    <a href="#">プライバシーポリシー</a>　|
     <a href="#">特定商取引法に基づく表記</a>　|
     <a href="#">お問い合わせ</a>
   </p>
