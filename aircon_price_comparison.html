@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>東京23区 エアコンクリーニング 料金比較</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif; background: #f5f5f5; color: #333; font-size: 14px; }
+    .container { max-width: 1300px; margin: 0 auto; padding: 20px; }
+    h1 { font-size: 22px; margin-bottom: 6px; }
+    .meta { color: #888; font-size: 12px; margin-bottom: 20px; }
+
+    /* タブ */
+    .tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 2px solid #ddd; }
+    .tab-btn { padding: 10px 20px; border: none; background: none; cursor: pointer; font-size: 14px; color: #666; border-bottom: 3px solid transparent; margin-bottom: -2px; font-weight: 600; }
+    .tab-btn.active { color: #2563eb; border-bottom-color: #2563eb; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* セクション */
+    .section { margin-bottom: 32px; }
+    .section-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; padding: 8px 12px; border-radius: 6px; display: flex; align-items: center; gap: 8px; }
+    .section-title.fc { background: #dbeafe; color: #1e40af; }
+    .section-title.local { background: #dcfce7; color: #166534; }
+    .section-title.budget { background: #fef9c3; color: #854d0e; }
+    .section-title.matching { background: #f3e8ff; color: #6b21a8; }
+    .badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+    .badge.fc { background: #1e40af; color: #fff; }
+    .badge.local { background: #166534; color: #fff; }
+    .badge.budget { background: #854d0e; color: #fff; }
+    .badge.matching { background: #6b21a8; color: #fff; }
+
+    /* テーブル */
+    .table-wrap { overflow-x: auto; margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.08); white-space: nowrap; }
+    th { background: #f8fafc; padding: 9px 10px; text-align: left; font-size: 11px; color: #555; font-weight: 600; border-bottom: 1px solid #e5e7eb; }
+    td { padding: 9px 10px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; font-size: 13px; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f9fafb; }
+    .company-name { font-weight: 600; white-space: nowrap; }
+    .company-name a { color: #2563eb; text-decoration: none; }
+    .company-name a:hover { text-decoration: underline; }
+    .price { font-weight: 700; color: #111; }
+    .price-tbd { color: #999; font-size: 12px; }
+    .price-free { color: #16a34a; font-weight: 700; }
+    .price-full { color: #7c3aed; font-weight: 700; }
+    .area-tag { display: inline-block; font-size: 11px; background: #f0f9ff; color: #0369a1; padding: 2px 7px; border-radius: 4px; margin: 2px 2px 2px 0; white-space: nowrap; }
+    .area-tag.all { background: #f0fdf4; color: #166534; font-weight: 600; }
+    .note { font-size: 12px; color: #666; white-space: nowrap; }
+    .source-link { font-size: 11px; color: #9ca3af; text-decoration: none; }
+    .source-link:hover { color: #2563eb; }
+
+    /* オプション列・完全分解列 */
+    th.opt { background: #fefce8; color: #78350f; }
+    th.full { background: #f3e8ff; color: #6b21a8; }
+
+    /* 区別セクション */
+    .ward-jump-btn { padding: 5px 10px; border: 1px solid #d1d5db; background: #fff; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 600; color: #374151; text-decoration: none; display: inline-block; }
+    .ward-jump-btn:hover { background: #2563eb; color: #fff; border-color: #2563eb; }
+    .ward-section { margin-bottom: 28px; }
+    .ward-section-title { font-size: 15px; font-weight: 700; padding: 8px 14px; background: #f1f5f9; border-left: 4px solid #2563eb; border-radius: 0 6px 6px 0; margin-bottom: 8px; color: #1e293b; }
+    .range-card { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+    .range-item { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 14px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.05); }
+    .range-label { font-size: 11px; color: #6b7280; font-weight: 600; white-space: nowrap; }
+    .range-value { font-size: 16px; font-weight: 800; color: #111; }
+    .range-value .range-min { color: #16a34a; }
+    .range-value .range-max { color: #dc2626; }
+    .range-note { font-size: 10px; color: #9ca3af; margin-left: 4px; }
+    /* まとめタブのレンジサマリー */
+    .summary-range { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; background: #fff; padding: 14px 16px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    .summary-range-item { display: flex; flex-direction: column; gap: 3px; min-width: 150px; }
+    .summary-range-item .sr-label { font-size: 11px; color: #6b7280; font-weight: 600; }
+    .summary-range-item .sr-value { font-size: 18px; font-weight: 800; color: #111; }
+    .summary-range-item .sr-sub { font-size: 11px; color: #9ca3af; }
+    /* マッチングサイト参考カード */
+    .matching-card { background: #fff; border: 1px solid #d8b4fe; border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    .matching-card h3 { font-size: 13px; color: #6b21a8; font-weight: 700; margin-bottom: 10px; }
+    .matching-grid { display: flex; gap: 20px; flex-wrap: wrap; }
+    .matching-site { min-width: 180px; }
+    .matching-site .site-name { font-size: 12px; font-weight: 700; color: #374151; margin-bottom: 6px; }
+    .matching-site .site-row { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; color: #555; padding: 2px 0; border-bottom: 1px dotted #e5e7eb; }
+    .matching-site .site-row:last-child { border-bottom: none; }
+    .matching-site .site-row .sr { color: #111; font-weight: 600; }
+
+    /* 凡例 */
+    .legend { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+    .legend-dot.fc { background: #dbeafe; border: 1px solid #93c5fd; }
+    .legend-dot.local { background: #dcfce7; border: 1px solid #86efac; }
+    .legend-dot.budget { background: #fef9c3; border: 1px solid #fde047; }
+
+    .note-box { background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 10px 14px; font-size: 12px; color: #78350f; margin-top: 16px; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>東京23区 エアコンクリーニング 料金比較</h1>
+  <div class="meta">調査日：2026年6月8日 ／ 税込表示 ／ 壁掛け1台・通常期の標準料金</div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('all', this)">23区まとめ</button>
+    <button class="tab-btn" onclick="switchTab('ward', this)">区別で探す</button>
+  </div>
+
+  <!-- ===== 23区まとめ ===== -->
+  <div id="tab-all" class="tab-content active">
+
+    <!-- 価格レンジサマリー（JS描画） -->
+    <div id="summary-range" class="summary-range" style="margin-bottom:16px;"></div>
+
+    <!-- マッチングサイト参考価格 -->
+    <div class="matching-card">
+      <h3>マッチングサイト掲載業者の価格相場（参考）</h3>
+      <div class="matching-grid">
+        <div class="matching-site">
+          <div class="site-name">くらしのマーケット</div>
+          <div class="site-row"><span>通常タイプ</span><span class="sr">8,000〜10,000円</span></div>
+          <div class="site-row"><span>機能付き（追加）</span><span class="sr">+5,000〜9,000円</span></div>
+          <div class="site-row"><span>室外機</span><span class="sr">2,500〜4,000円</span></div>
+          <div class="site-row"><span>消臭抗菌コート</span><span class="sr">1,000〜2,000円</span></div>
+        </div>
+        <div class="matching-site">
+          <div class="site-name">ユアマイスター</div>
+          <div class="site-row"><span>通常タイプ</span><span class="sr">5,750〜11,500円</span></div>
+          <div class="site-row"><span>相場</span><span class="sr">8,000〜10,000円</span></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#9ca3af;margin-top:8px">※プロ個人の登録価格帯。品質・実績はプロ次第で大きく異なる</div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot fc"></div>大手FC・直営系</div>
+      <div class="legend-item"><div class="legend-dot local"></div>地域密着・独立系（分解洗浄）</div>
+      <div class="legend-item"><div class="legend-dot budget"></div>格安系（高圧洗浄のみ・非分解）</div>
+    </div>
+
+    <!-- 大手FC -->
+    <div class="section">
+      <div class="section-title fc">
+        <span class="badge fc">大手FC・直営</span>
+        大手フランチャイズ・直営チェーン — 全23区対応
+      </div>
+      <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:160px">業者名</th>
+            <th>通常（機能なし）</th>
+            <th>機能付き</th>
+            <th class="full">完全分解</th>
+            <th class="opt">防カビ</th>
+            <th class="opt">室外機</th>
+            <th class="opt">ドレン</th>
+            <th>備考</th>
+            <th>出典</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="company-name"><a href="https://www.osoujikakumei.jp/price/" target="_blank">おそうじ革命</a></td>
+            <td class="price">9,980円〜</td>
+            <td class="price">18,700円〜</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price">2,750円</td>
+            <td class="price">3,300円</td>
+            <td class="price-tbd">—</td>
+            <td class="note">全国FC / 2台目8,800円〜</td>
+            <td><a class="source-link" href="https://www.osoujikakumei.jp/price/" target="_blank">公式料金ページ</a></td>
+          </tr>
+          <tr>
+            <td class="company-name"><a href="https://www.happy-bears.com/" target="_blank">ベアーズ</a></td>
+            <td class="price">11,990円</td>
+            <td class="price">19,580円</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td class="note">2台目：各1,100円引</td>
+            <td><a class="source-link" href="https://www.happy-bears.com/" target="_blank">公式キャンペーンページ</a></td>
+          </tr>
+          <tr>
+            <td class="company-name"><a href="https://kaji.tokyo-gas.co.jp/housecleaning/menu/airconditioner" target="_blank">東京ガス</a></td>
+            <td class="price">13,200円</td>
+            <td class="price">22,000円</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price">3,300円</td>
+            <td class="price">3,300円</td>
+            <td class="note">基本含む</td>
+            <td class="note">2台目11,000円/19,800円</td>
+            <td><a class="source-link" href="https://kaji.tokyo-gas.co.jp/housecleaning/menu/airconditioner" target="_blank">公式料金ページ</a></td>
+          </tr>
+          <tr>
+            <td class="company-name"><a href="https://www.kajitaku.com/house-cleaning/airconditioner/" target="_blank">カジタク</a></td>
+            <td class="price">14,300円〜</td>
+            <td class="price">18,810円</td>
+            <td class="price-full">22,770円〜</td>
+            <td class="price-free">無料</td>
+            <td class="price">6,600円</td>
+            <td class="price">3,300円</td>
+            <td class="note">イオン系 / プレミアムプラン</td>
+            <td><a class="source-link" href="https://www.kajitaku.com/house-cleaning/airconditioner/" target="_blank">公式料金ページ</a></td>
+          </tr>
+          <tr>
+            <td class="company-name"><a href="https://www.osoujihonpo.com/house-cleaning/aircon/price/" target="_blank">おそうじ本舗</a></td>
+            <td class="price">15,400円</td>
+            <td class="price">20,900円</td>
+            <td class="price-full">+8,800円</td>
+            <td class="price">3,300円</td>
+            <td class="price">5,500円</td>
+            <td class="price-tbd">要確認</td>
+            <td class="note">全国FC最大手 / 完全分解は追加オプション</td>
+            <td><a class="source-link" href="https://www.osoujihonpo.com/house-cleaning/aircon/price/" target="_blank">公式料金ページ</a></td>
+          </tr>
+          <tr>
+            <td class="company-name"><a href="https://www.duskin.jp/servicemaster/spot/sm000010/" target="_blank">ダスキン</a></td>
+            <td class="price">15,400円</td>
+            <td class="price">26,400円</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price">2,750円</td>
+            <td class="price">6,600円</td>
+            <td class="price-tbd">要確認</td>
+            <td class="note">機能付きは業界最高水準</td>
+            <td><a class="source-link" href="https://www.duskin.jp/servicemaster/spot/sm000010/" target="_blank">公式料金ページ</a></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- 地域密着・独立系 -->
+    <div class="section">
+      <div class="section-title local">
+        <span class="badge local">地域密着・独立系</span>
+        分解洗浄・高圧洗浄あり — 独立経営業者
+      </div>
+      <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:160px">業者名</th>
+            <th>通常（機能なし）</th>
+            <th>機能付き</th>
+            <th class="full">完全分解</th>
+            <th class="opt">防カビ</th>
+            <th class="opt">室外機</th>
+            <th class="opt">ドレン</th>
+            <th>対応エリア</th>
+            <th>出典</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="company-name"><a href="https://www.39-hc.com/menu_airconditioner.html" target="_blank">39ハウスクリーニング</a></td>
+            <td class="price">8,800円</td>
+            <td class="price">15,800円</td>
+            <td class="price-tbd">—</td>
+            <td class="price-tbd">—</td>
+            <td class="price">4,000円</td>
+            <td class="price-tbd">—</td>
+            <td><span class="area-tag all">23区全域</span><span class="area-tag">千葉・埼玉・神奈川一部</span></td>
+            <td><a class="source-link" href="https://www.39-hc.com/menu_airconditioner.html" target="_blank">公式料金ページ</a></td>
+          </tr>
+          <tr>
+            <td class="company-name"><a href="https://www.lightcleaning.net/" target="_blank">ライトクリーニング</a></td>
+            <td class="price">9,500円</td>
+            <td class="price price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-free">無料（基本込）</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td><span class="area-tag all">23区全域</span></td>
+            <td><a class="source-link" href="https://www.lightcleaning.net/" target="_blank">公式サイト</a></td>
+          </tr>
+          <tr>
+            <td class="company-name"><a href="https://aqua-aircon-osouji.com/pg476.html" target="_blank">AQUAハウスクリーニング</a></td>
+            <td class="price">9,900円</td>
+            <td class="price">16,500円</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td><span class="area-tag">墨田区</span><span class="area-tag">江東区</span><span class="area-tag">文京区</span><span class="area-tag">23区全域対応</span></td>
+            <td><a class="source-link" href="https://aqua-aircon-osouji.com/pg476.html" target="_blank">公式キャンペーンページ</a></td>
+          </tr>
+          <tr>
+            <td class="company-name"><a href="https://iwa-cle.jp/" target="_blank">いわさきクリーニング</a></td>
+            <td class="price">10,000円</td>
+            <td class="price">18,000円</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td><span class="area-tag all">23区全域</span></td>
+            <td><a class="source-link" href="https://iwa-cle.jp/" target="_blank">公式サイト</a></td>
+          </tr>
+          <tr>
+            <td class="company-name"><a href="https://r-cleaning.com/" target="_blank">アールクリーニング</a></td>
+            <td class="price">10,780円</td>
+            <td class="price price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td><span class="area-tag all">23区全域</span></td>
+            <td><a class="source-link" href="https://r-cleaning.com/" target="_blank">公式サイト</a></td>
+          </tr>
+          <tr>
+            <td class="company-name"><a href="https://seiken-ac-cleaning.hp.peraichi.com/housecleaning-aircon/" target="_blank">セイケン</a></td>
+            <td class="price">11,800円</td>
+            <td class="price">17,300円</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price">2,500円〜</td>
+            <td class="price">4,500円〜</td>
+            <td class="price-tbd">—</td>
+            <td><span class="area-tag">品川区</span><span class="area-tag">大田区</span><span class="area-tag">世田谷区</span><span class="area-tag">目黒区</span><span class="area-tag">港区</span><span class="area-tag">渋谷区</span><span class="area-tag">新宿区</span><span class="area-tag">神奈川一部</span></td>
+            <td><a class="source-link" href="https://seiken-ac-cleaning.hp.peraichi.com/housecleaning-aircon/" target="_blank">公式料金ページ</a></td>
+          </tr>
+          <tr>
+            <td class="company-name"><a href="https://sukima-clean.com/" target="_blank">スキマハウスクリーニング</a></td>
+            <td class="price">13,200円</td>
+            <td class="price">18,700円</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price">3,300円</td>
+            <td class="price">3,300円</td>
+            <td class="price">3,300円</td>
+            <td><span class="area-tag all">23区全域</span><span class="area-tag">目黒区本社</span></td>
+            <td><a class="source-link" href="https://sukima-clean.com/" target="_blank">公式サイト</a></td>
+          </tr>
+          <tr>
+            <td class="company-name"><a href="https://www.o-o-delight.com/" target="_blank">おうちのおそうじDelight</a></td>
+            <td class="price price-tbd">要見積もり</td>
+            <td class="price price-tbd">要見積もり</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td class="price-tbd">要確認</td>
+            <td><span class="area-tag">北区</span><span class="area-tag">板橋区</span><span class="area-tag">豊島区</span><span class="area-tag">文京区</span><span class="area-tag">荒川区</span></td>
+            <td><a class="source-link" href="https://www.o-o-delight.com/" target="_blank">公式サイト</a></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- 格安系 -->
+    <div class="section">
+      <div class="section-title budget">
+        <span class="badge budget">格安・非分解</span>
+        高圧洗浄スプレーのみ — 分解なし・短時間施工
+      </div>
+      <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:160px">業者名</th>
+            <th>通常（機能なし）</th>
+            <th>機能付き</th>
+            <th class="full">完全分解</th>
+            <th class="opt">防カビ</th>
+            <th class="opt">室外機</th>
+            <th class="opt">ドレン</th>
+            <th>対応エリア</th>
+            <th>出典</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="company-name"><a href="https://www.nekonote-tokyo.com/" target="_blank">ネコの手</a></td>
+            <td class="price">4,950円<span style="font-weight:400;font-size:11px;color:#666">（税別4,500円）</span></td>
+            <td class="price">5,500円<span style="font-weight:400;font-size:11px;color:#666">（税別5,000円）</span></td>
+            <td class="price-tbd" style="text-align:center;color:#ccc">—</td>
+            <td class="price-free">無料</td>
+            <td class="price">1,100円</td>
+            <td class="note">室外機に含む</td>
+            <td><span class="area-tag all">23区全域</span></td>
+            <td><a class="source-link" href="https://www.nekonote-tokyo.com/" target="_blank">公式サイト</a></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="note-box">⚠️ 非分解洗浄は内部まで完全に洗浄されないため、重度の汚れ・カビには効果が限定的。軽度のメンテナンス用途向け。</div>
+    </div>
+
+  </div>
+
+  <!-- ===== 区別で探す ===== -->
+  <div id="tab-ward" class="tab-content">
+    <div id="ward-nav" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:20px;"></div>
+    <div id="all-ward-sections"></div>
+  </div>
+
+  <div class="note-box" style="margin-top:24px">
+    📌 料金は調査時点（2026年6月）の公式サイト掲載価格。キャンペーン・時期・機種・設置条件により変動あり。最新価格は各社公式サイトで確認してください。
+  </div>
+</div>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  const ALL_WARDS = ['千代田区','中央区','港区','新宿区','文京区','台東区','墨田区','江東区','品川区','目黒区','大田区','世田谷区','渋谷区','中野区','杉並区','豊島区','北区','荒川区','板橋区','練馬区','足立区','葛飾区','江戸川区'];
+
+  const companies = [
+    {
+      name: 'おそうじ革命',      category: 'fc',
+      price_normal: '9,980円〜', price_clean: '18,700円〜', price_full: '要確認',
+      wards: ALL_WARDS,          url: 'https://www.osoujikakumei.jp/price/',
+      note: '全国FC / 2台目8,800円〜',
+      opt_antibac: '2,750円',    opt_outdoor: '3,300円',    opt_drain: '—',
+    },
+    {
+      name: 'ベアーズ',           category: 'fc',
+      price_normal: '11,990円',  price_clean: '19,580円',  price_full: '要確認',
+      wards: ALL_WARDS,          url: 'https://www.happy-bears.com/',
+      note: '2台目：各1,100円引',
+      opt_antibac: '要確認',     opt_outdoor: '要確認',     opt_drain: '要確認',
+    },
+    {
+      name: '東京ガス',           category: 'fc',
+      price_normal: '13,200円',  price_clean: '22,000円',  price_full: '要確認',
+      wards: ALL_WARDS,          url: 'https://kaji.tokyo-gas.co.jp/housecleaning/menu/airconditioner',
+      note: '2台目11,000円/19,800円',
+      opt_antibac: '3,300円',    opt_outdoor: '3,300円',    opt_drain: '基本含む',
+    },
+    {
+      name: 'カジタク',           category: 'fc',
+      price_normal: '14,300円〜', price_clean: '18,810円', price_full: '22,770円〜',
+      wards: ALL_WARDS,          url: 'https://www.kajitaku.com/house-cleaning/airconditioner/',
+      note: 'イオン系 / プレミアムプラン',
+      opt_antibac: '無料',       opt_outdoor: '6,600円',    opt_drain: '3,300円',
+    },
+    {
+      name: 'おそうじ本舗',       category: 'fc',
+      price_normal: '15,400円',  price_clean: '20,900円',  price_full: '+8,800円',
+      wards: ALL_WARDS,          url: 'https://www.osoujihonpo.com/house-cleaning/aircon/price/',
+      note: '全国最大手FC / 完全分解追加',
+      opt_antibac: '3,300円',    opt_outdoor: '5,500円',    opt_drain: '要確認',
+    },
+    {
+      name: 'ダスキン',           category: 'fc',
+      price_normal: '15,400円',  price_clean: '26,400円',  price_full: '要確認',
+      wards: ALL_WARDS,          url: 'https://www.duskin.jp/servicemaster/spot/sm000010/',
+      note: '機能付きは最高水準',
+      opt_antibac: '2,750円',    opt_outdoor: '6,600円',    opt_drain: '要確認',
+    },
+    {
+      name: '39ハウスクリーニング', category: 'local',
+      price_normal: '8,800円',   price_clean: '15,800円',  price_full: '—',
+      wards: ALL_WARDS,          url: 'https://www.39-hc.com/menu_airconditioner.html',
+      note: '2台目同時8,000円',
+      opt_antibac: '—',          opt_outdoor: '4,000円',    opt_drain: '—',
+    },
+    {
+      name: 'ライトクリーニング',  category: 'local',
+      price_normal: '9,500円',   price_clean: '要確認',    price_full: '—',
+      wards: ALL_WARDS,          url: 'https://www.lightcleaning.net/',
+      note: 'キャンペーン価格',
+      opt_antibac: '無料（基本込）', opt_outdoor: '要確認',  opt_drain: '要確認',
+    },
+    {
+      name: 'AQUAハウスクリーニング', category: 'local',
+      price_normal: '9,900円',   price_clean: '16,500円',  price_full: '要確認',
+      wards: ALL_WARDS,          url: 'https://aqua-aircon-osouji.com/pg476.html',
+      note: '墨田・江東・文京中心',
+      opt_antibac: '要確認',     opt_outdoor: '要確認',     opt_drain: '要確認',
+    },
+    {
+      name: 'いわさきクリーニング', category: 'local',
+      price_normal: '10,000円',  price_clean: '18,000円',  price_full: '—',
+      wards: ALL_WARDS,          url: 'https://iwa-cle.jp/',
+      note: '街のお掃除屋さん',
+      opt_antibac: '要確認',     opt_outdoor: '要確認',     opt_drain: '要確認',
+    },
+    {
+      name: 'アールクリーニング',  category: 'local',
+      price_normal: '10,780円',  price_clean: '要確認',    price_full: '—',
+      wards: ALL_WARDS,          url: 'https://r-cleaning.com/',
+      note: 'Google口コミ900件超 / 4.6',
+      opt_antibac: '要確認',     opt_outdoor: '要確認',     opt_drain: '要確認',
+    },
+    {
+      name: 'セイケン',           category: 'local',
+      price_normal: '11,800円',  price_clean: '17,300円',  price_full: '—',
+      wards: ['港区','新宿区','品川区','目黒区','大田区','世田谷区','渋谷区'],
+      url: 'https://seiken-ac-cleaning.hp.peraichi.com/housecleaning-aircon/',
+      note: '南西部特化 / 神奈川一部',
+      opt_antibac: '2,500円〜',  opt_outdoor: '4,500円〜',  opt_drain: '—',
+    },
+    {
+      name: 'スキマハウスクリーニング', category: 'local',
+      price_normal: '13,200円',  price_clean: '18,700円',  price_full: '要確認',
+      wards: ALL_WARDS,          url: 'https://sukima-clean.com/',
+      note: '目黒区本社 / 分解洗浄',
+      opt_antibac: '3,300円',    opt_outdoor: '3,300円',    opt_drain: '3,300円',
+    },
+    {
+      name: 'おうちのおそうじDelight', category: 'local',
+      price_normal: '要見積もり', price_clean: '要見積もり', price_full: '要確認',
+      wards: ['文京区','豊島区','北区','荒川区','板橋区'],
+      url: 'https://www.o-o-delight.com/',
+      note: '北部特化 / 天然植物洗剤',
+      opt_antibac: '要確認',     opt_outdoor: '要確認',     opt_drain: '要確認',
+    },
+    {
+      name: 'ネコの手',           category: 'budget',
+      price_normal: '4,950円',   price_clean: '5,500円',   price_full: '—',
+      wards: ALL_WARDS,          url: 'https://www.nekonote-tokyo.com/',
+      note: '非分解洗浄・追加料金なし',
+      opt_antibac: '無料',       opt_outdoor: '1,100円',    opt_drain: '室外機に含む',
+    },
+  ];
+
+  const categoryLabel = { fc: '大手FC', local: '地域密着', budget: '格安（非分解）' };
+  const categoryClass = { fc: 'badge fc', local: 'badge local', budget: 'badge budget' };
+
+  function parsePrice(str) {
+    if (!str || str.includes('要') || str.includes('別途')) return null;
+    const m = str.replace(/,/g, '').match(/\d+/);
+    return m ? parseInt(m[0]) : null;
+  }
+
+  // "+" 始まりのオプション追加料金は除外（完全分解の "+8,800円" 等）
+  function parseFullPrice(str) {
+    if (!str || str === '—' || str.includes('要') || str.startsWith('+')) return null;
+    const m = str.replace(/,/g, '').match(/\d+/);
+    return m ? parseInt(m[0]) : null;
+  }
+
+  function parseOptPrice(str) {
+    if (!str || str === '—' || str.includes('要') || str.includes('基本') || str.includes('含む')) return null;
+    if (str === '無料') return 0;
+    const m = str.replace(/,/g, '').match(/\d+/);
+    return m ? parseInt(m[0]) : null;
+  }
+
+  function calcRange(matched) {
+    matched = matched.filter(c => c.category !== 'budget');
+    const normals  = matched.map(c => parsePrice(c.price_normal)).filter(v => v !== null);
+    const cleans   = matched.map(c => parsePrice(c.price_clean)).filter(v => v !== null);
+    const fulls    = matched.map(c => parseFullPrice(c.price_full)).filter(v => v !== null);
+    const antibacs = matched.map(c => parseOptPrice(c.opt_antibac)).filter(v => v !== null);
+    const outdoors = matched.map(c => parseOptPrice(c.opt_outdoor)).filter(v => v !== null);
+    const drains   = matched.map(c => parseOptPrice(c.opt_drain)).filter(v => v !== null);
+    return {
+      normal:  normals.length  ? { min: Math.min(...normals),  max: Math.max(...normals)  } : null,
+      clean:   cleans.length   ? { min: Math.min(...cleans),   max: Math.max(...cleans)   } : null,
+      full:    fulls.length    ? { min: Math.min(...fulls),    max: Math.max(...fulls)    } : null,
+      antibac: antibacs.length ? { min: Math.min(...antibacs), max: Math.max(...antibacs) } : null,
+      outdoor: outdoors.length ? { min: Math.min(...outdoors), max: Math.max(...outdoors) } : null,
+      drain:   drains.length   ? { min: Math.min(...drains),   max: Math.max(...drains)   } : null,
+    };
+  }
+
+  function fmt(n) { return n.toLocaleString() + '円'; }
+
+  function buildRangeCard(range) {
+    let html = '<div class="range-card">';
+    if (range.normal) {
+      html += `<div class="range-item">
+        <span class="range-label">通常（機能なし）</span>
+        <span class="range-value"><span class="range-min">${fmt(range.normal.min)}</span> 〜 <span class="range-max">${fmt(range.normal.max)}</span></span>
+      </div>`;
+    }
+    if (range.clean) {
+      html += `<div class="range-item">
+        <span class="range-label">機能付き</span>
+        <span class="range-value"><span class="range-min">${fmt(range.clean.min)}</span> 〜 <span class="range-max">${fmt(range.clean.max)}</span></span>
+      </div>`;
+    }
+    if (range.full) {
+      html += `<div class="range-item" style="border-color:#d8b4fe">
+        <span class="range-label" style="color:#7c3aed">完全分解</span>
+        <span class="range-value" style="font-size:14px"><span class="range-min">${fmt(range.full.min)}</span> 〜 <span class="range-max">${fmt(range.full.max)}</span></span>
+      </div>`;
+    }
+    if (range.antibac) {
+      html += `<div class="range-item">
+        <span class="range-label">防カビ</span>
+        <span class="range-value" style="font-size:14px"><span class="range-min">${fmt(range.antibac.min)}</span> 〜 <span class="range-max">${fmt(range.antibac.max)}</span></span>
+      </div>`;
+    }
+    if (range.outdoor) {
+      html += `<div class="range-item">
+        <span class="range-label">室外機</span>
+        <span class="range-value" style="font-size:14px"><span class="range-min">${fmt(range.outdoor.min)}</span> 〜 <span class="range-max">${fmt(range.outdoor.max)}</span></span>
+      </div>`;
+    }
+    if (range.drain) {
+      html += `<div class="range-item">
+        <span class="range-label">ドレン</span>
+        <span class="range-value" style="font-size:14px"><span class="range-min">${fmt(range.drain.min)}</span> 〜 <span class="range-max">${fmt(range.drain.max)}</span></span>
+      </div>`;
+    }
+    html += '<span class="range-note">※要確認・基本込みを除く</span></div>';
+    return html;
+  }
+
+  function optCell(val, extraClass) {
+    if (!val || val === '—') return `<td style="text-align:center;color:#ccc">—</td>`;
+    if (val.includes('要')) return `<td class="price-tbd">${val}</td>`;
+    if (val === '無料' || val.startsWith('無料')) return `<td class="price-free">${val}</td>`;
+    if (val.includes('基本') || val === '室外機に含む') return `<td class="note">${val}</td>`;
+    const cls = extraClass || 'price';
+    return `<td class="${cls}">${val}</td>`;
+  }
+
+  function buildWardTable(matched) {
+    let html = `<div class="table-wrap"><table>
+      <thead><tr>
+        <th style="width:150px">業者名</th>
+        <th>種別</th>
+        <th>通常</th>
+        <th>機能付き</th>
+        <th class="full">完全分解</th>
+        <th class="opt">防カビ</th>
+        <th class="opt">室外機</th>
+        <th class="opt">ドレン</th>
+        <th>備考</th>
+      </tr></thead><tbody>`;
+    for (const c of matched) {
+      html += `<tr>
+        <td class="company-name"><a href="${c.url}" target="_blank">${c.name}</a></td>
+        <td><span class="${categoryClass[c.category]}">${categoryLabel[c.category]}</span></td>
+        <td class="price">${c.price_normal}</td>
+        <td class="${c.price_clean.includes('要') ? 'price price-tbd' : 'price'}">${c.price_clean}</td>
+        ${optCell(c.price_full, 'price-full')}
+        ${optCell(c.opt_antibac)}
+        ${optCell(c.opt_outdoor)}
+        ${optCell(c.opt_drain)}
+        <td class="note">${c.note}</td>
+      </tr>`;
+    }
+    html += '</tbody></table></div>';
+    return html;
+  }
+
+  function renderSummaryRange() {
+    const range = calcRange(companies);
+    const el = document.getElementById('summary-range');
+    if (!el) return;
+    let html = `
+      <div class="summary-range-item">
+        <span class="sr-label">通常（機能なし・分解洗浄系）</span>
+        <span class="sr-value"><span style="color:#16a34a">${fmt(range.normal.min)}</span> 〜 <span style="color:#dc2626">${fmt(range.normal.max)}</span></span>
+        <span class="sr-sub">最安：39ハウスクリーニング／最高：ダスキン</span>
+      </div>
+      <div class="summary-range-item">
+        <span class="sr-label">機能付き（分解洗浄系）</span>
+        <span class="sr-value"><span style="color:#16a34a">${fmt(range.clean.min)}</span> 〜 <span style="color:#dc2626">${fmt(range.clean.max)}</span></span>
+        <span class="sr-sub">最安：39ハウスクリーニング／最高：ダスキン</span>
+      </div>`;
+    if (range.full) {
+      html += `<div class="summary-range-item">
+        <span class="sr-label" style="color:#7c3aed">完全分解（フルバラシ）</span>
+        <span class="sr-value" style="font-size:16px"><span style="color:#16a34a">${fmt(range.full.min)}</span> 〜 <span style="color:#dc2626">${fmt(range.full.max)}</span></span>
+        <span class="sr-sub">カジタクのみ価格公開中 ※各社要確認</span>
+      </div>`;
+    }
+    if (range.antibac) {
+      html += `<div class="summary-range-item">
+        <span class="sr-label">防カビ・抗菌コート</span>
+        <span class="sr-value" style="font-size:15px"><span style="color:#16a34a">${fmt(range.antibac.min)}</span> 〜 <span style="color:#dc2626">${fmt(range.antibac.max)}</span></span>
+        <span class="sr-sub">※要確認・基本込みを除く</span>
+      </div>`;
+    }
+    if (range.outdoor) {
+      html += `<div class="summary-range-item">
+        <span class="sr-label">室外機洗浄</span>
+        <span class="sr-value" style="font-size:15px"><span style="color:#16a34a">${fmt(range.outdoor.min)}</span> 〜 <span style="color:#dc2626">${fmt(range.outdoor.max)}</span></span>
+        <span class="sr-sub">※要確認を除く</span>
+      </div>`;
+    }
+    if (range.drain) {
+      html += `<div class="summary-range-item">
+        <span class="sr-label">ドレンホース洗浄</span>
+        <span class="sr-value" style="font-size:15px"><span style="color:#16a34a">${fmt(range.drain.min)}</span> 〜 <span style="color:#dc2626">${fmt(range.drain.max)}</span></span>
+        <span class="sr-sub">※要確認・基本込みを除く</span>
+      </div>`;
+    }
+    el.innerHTML = html;
+  }
+
+  function renderAllWards() {
+    const nav = document.getElementById('ward-nav');
+    const container = document.getElementById('all-ward-sections');
+    let navHtml = '';
+    let sectionsHtml = '';
+
+    for (const ward of ALL_WARDS) {
+      const id = 'ward-' + ward;
+      const matched = companies.filter(c => c.wards.includes(ward));
+      const range = calcRange(matched);
+      navHtml += `<a class="ward-jump-btn" href="#${id}">${ward}</a>`;
+      sectionsHtml += `<div class="ward-section" id="${id}">
+        <div class="ward-section-title">${ward}（対応${matched.length}社）</div>
+        ${buildRangeCard(range)}
+        ${buildWardTable(matched)}
+      </div>`;
+    }
+
+    nav.innerHTML = navHtml;
+    container.innerHTML = sectionsHtml;
+  }
+
+  renderAllWards();
+  renderSummaryRange();
+</script>
+</body>
+</html>
